@@ -74,6 +74,7 @@ public class CarsGui extends VerticalLayout {
         upperLayout.addItemWithLabel("",color);
         upperLayout.addItemWithLabel("",model);
         upperLayout.addItemWithLabel("",production_date);
+        upperLayout.addItemWithLabel("");
         upperLayout.addItemWithLabel("", cancel);
         upperLayout.addItemWithLabel("",save);
 
