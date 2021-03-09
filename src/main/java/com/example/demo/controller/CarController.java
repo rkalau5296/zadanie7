@@ -29,7 +29,10 @@ public class CarController {
     public List<Car> getCarsByDate (@PathVariable String from, @PathVariable String to){
         return carRepository.findCarsByDate(LocalDate.parse(from), LocalDate.parse(to));
     }
-
+    @RequestMapping(method = RequestMethod.GET, value = "/getCarByColor/{color}")
+    public List<Car> getCarsByDate (@PathVariable String color){
+        return carRepository.findCarsByColor(color);
+    }
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public void addCar (@RequestBody Car newCar) {
          carRepository.save(newCar);

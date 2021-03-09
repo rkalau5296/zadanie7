@@ -9,5 +9,6 @@ public interface CarRepository {
     List<Car> getAllCars();
     void save(Car newCar);
     List<Car> findCarsByDate(LocalDate fromDate, LocalDate toDate);
+    List<Car> findCarsByColor(String color);
 
 }

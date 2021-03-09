@@ -51,6 +51,13 @@ public class CarDao implements CarRepository {
         return dbMapper(dbOutput);
     }
 
+    @Override
+    public List<Car> findCarsByColor(String color) {
+        String sgl = "SELECT * FROM cars WHERE color = ?";
+        List<Map<String, Object>> dbOutput = jdbcTemplate.queryForList(sgl, color.toString());
+        return dbMapper(dbOutput);
+    }
+
     private List<Car> dbMapper(List<Map<String, Object>> dbOutput) {
         List<Car> carList = new ArrayList<>();
         dbOutput.forEach(element -> carList.add(new Car(
