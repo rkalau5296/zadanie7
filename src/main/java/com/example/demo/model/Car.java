@@ -3,8 +3,10 @@ package com.example.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,13 +16,15 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
     @Column
-    String brand;
+    private String mark;
     @Column
-    String model;
+    private String model;
     @Column
-    String color;
+    private String color;
     @Column
-    String production_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate productionDate;
+
 }

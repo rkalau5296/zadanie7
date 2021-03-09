@@ -13,6 +13,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+
+import static elemental.json.impl.JsonUtil.parse;
+
 
 @Route("vehicles")
 public class CarsGui extends VerticalLayout {
@@ -46,20 +50,19 @@ public class CarsGui extends VerticalLayout {
 
         Dialog dialog = new Dialog(new Text("Add new vehicle"));
 
-        IntegerField integerField = new IntegerField("Vehicle Id");
         TextField brand = new TextField("Brand");
         TextField color = new TextField("Color");
         TextField model = new TextField("Model");
         TextField production_date = new TextField("Production Date");
 
         Button save = new Button("Save", buttonClickEvent -> {
-            if(integerField.getValue()==null|| brand.getValue()==null || color.getValue()==null||model.getValue()==null||production_date.getValue()==null)
+            if(brand.getValue()==null || color.getValue()==null||model.getValue()==null||production_date.getValue()==null)
             {
                 Notification notification = Notification.show(
                         "Nie wprowadzono wszystkich danych. Wypełnij wszystkie pola.");
                 add(notification);
             }
-            url.postCar(new CarDto(integerField.getValue(), brand.getValue(), color.getValue(), model.getValue(),production_date.getValue()));
+            url.postCar(new CarDto(brand.getValue(), color.getValue(), model.getValue(), parseToLocalDate(production_date.getValue())));
             addVehiclesToGrid();
             dialog.close();
         });
@@ -69,7 +72,6 @@ public class CarsGui extends VerticalLayout {
 
         MyCustomLayout upperLayout = new MyCustomLayout();
 
-        upperLayout.addItemWithLabel("",integerField);
         upperLayout.addItemWithLabel("",brand);
         upperLayout.addItemWithLabel("",color);
         upperLayout.addItemWithLabel("",model);
@@ -81,5 +83,9 @@ public class CarsGui extends VerticalLayout {
         dialog.add(upperLayout );
 
         return dialog;
+    }
+
+    public LocalDate parseToLocalDate(String date) {
+        return LocalDate.parse(date);
     }
 }

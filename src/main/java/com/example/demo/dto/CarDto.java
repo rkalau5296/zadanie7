@@ -5,15 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarDto {
 
-    long id;
-    String brand;
-    String model;
-    String color;
-    String production_date;
+    //private long id;
+    private String mark;
+    private String model;
+    private String color;
+    private LocalDate productionDate;
 }

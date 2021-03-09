@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Car;
-import com.example.demo.service.CarService;
+import com.example.demo.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +12,21 @@ import java.util.List;
 @CrossOrigin("*")
 public class CarController {
 
-    private final CarService carService;
+    private final CarRepository carRepository;
 
     @Autowired
-    public CarController(CarService carService) {
-        this.carService = carService;
+    public CarController(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/getCar")
     public List<Car> getCars (){
-        return carService.getAllCars();
+        return carRepository.getAllCars();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/car")
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
 
-    public Car addCar (@RequestBody Car newCar) {
-        return carService.addNewCar(newCar);
+    public void addCar (@RequestBody Car newCar) {
+         carRepository.save(newCar);
     }
 }

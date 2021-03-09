@@ -4,11 +4,12 @@ package com.example.demo.repository;
 import com.example.demo.model.Car;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public interface CarRepository extends CrudRepository<Car, Long> {
+public interface CarRepository {
 
-    @Override
-    List<Car> findAll();
+    List<Car> getAllCars();
 
+    void save(Car newCar);
 }

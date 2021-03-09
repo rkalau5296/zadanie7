@@ -25,7 +25,7 @@ public class Url {
 
     public List<CarDto> getCars() {
 
-        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car")
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car/getCar")
                 .build().encode().toUri();
 
         CarDto[] vehicles = restTemplate.getForObject(uri, CarDto[].class);
@@ -36,7 +36,7 @@ public class Url {
     //POST
 
     public void postCar(final CarDto carDto) {
-        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car/car")
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car/add")
                 .build().encode().toUri();
         restTemplate.postForObject(uri, carDto, CarDto.class);
     }
