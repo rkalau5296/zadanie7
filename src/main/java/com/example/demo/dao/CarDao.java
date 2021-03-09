@@ -43,6 +43,14 @@ public class CarDao implements CarRepository {
                 newCar.getColor(), newCar.getProductionDate());
     }
 
+    @Override
+    public List<Car> findCarsByDate(LocalDate fromDate, LocalDate toDate) {
+        String sql = "SELECT * FROM cars \n" +
+                "WHERE (production_date > ? AND production_date < ?)";
+        List<Map<String, Object>> dbOutput = jdbcTemplate.queryForList(sql, fromDate.toString(), toDate.toString());
+        return dbMapper(dbOutput);
+    }
+
     private List<Car> dbMapper(List<Map<String, Object>> dbOutput) {
         List<Car> carList = new ArrayList<>();
         dbOutput.forEach(element -> carList.add(new Car(

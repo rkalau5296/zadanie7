@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Car;
 import com.example.demo.repository.CarRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,10 +25,15 @@ public class CarController {
     public List<Car> getCars (){
         return carRepository.getAllCars();
     }
+    @RequestMapping(method = RequestMethod.GET, value = "/getCarByDate/{from}/{to}")
+    public List<Car> getCarsByDate (@PathVariable String from, @PathVariable String to){
+        return carRepository.findCarsByDate(LocalDate.parse(from), LocalDate.parse(to));
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-
     public void addCar (@RequestBody Car newCar) {
          carRepository.save(newCar);
     }
+
+
 }
