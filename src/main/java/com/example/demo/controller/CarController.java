@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping()
 @CrossOrigin("*")
 public class CarController {
 
@@ -30,7 +30,7 @@ public class CarController {
         return carRepository.findCarsByDate(LocalDate.parse(from), LocalDate.parse(to));
     }
     @RequestMapping(method = RequestMethod.GET, value = "/getCarByColor/{color}")
-    public List<Car> getCarsByDate (@PathVariable String color){
+    public List<Car> getCarsByColor (@PathVariable String color){
         return carRepository.findCarsByColor(color);
     }
     @RequestMapping(method = RequestMethod.POST, value = "/add")

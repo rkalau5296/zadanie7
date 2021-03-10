@@ -25,7 +25,7 @@ public class Url {
 
     public List<CarDto> getCars() {
 
-        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car/getCar")
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/getCar")
                 .build().encode().toUri();
 
         CarDto[] vehicles = restTemplate.getForObject(uri, CarDto[].class);
@@ -33,10 +33,29 @@ public class Url {
         return Arrays.asList(Optional.ofNullable(vehicles).orElse(new CarDto[0]));
     }
 
+    public List<CarDto> getCarsByDate(String from, String to) {
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/getCarByDate/" + from + "/" + to)
+                .build().encode().toUri();
+
+        CarDto[] vehicles = restTemplate.getForObject(uri, CarDto[].class);
+
+        return Arrays.asList(Optional.ofNullable(vehicles).orElse(new CarDto[0]));
+    }
+
+    public List<CarDto> getCarsByColor(String color) {
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/getCarByColor/" + color)
+                .build().encode().toUri();
+
+        CarDto[] vehicles = restTemplate.getForObject(uri, CarDto[].class);
+
+        return Arrays.asList(Optional.ofNullable(vehicles).orElse(new CarDto[0]));
+    }
     //POST
 
     public void postCar(final CarDto carDto) {
-        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/car/add")
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/add")
                 .build().encode().toUri();
         restTemplate.postForObject(uri, carDto, CarDto.class);
     }

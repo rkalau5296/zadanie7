@@ -4,6 +4,7 @@ import com.example.demo.dto.CarDto;
 import com.example.demo.url.Url;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
@@ -39,11 +40,34 @@ public class CarsGui extends VerticalLayout {
         Button newVehicle = new Button("New vehicle");
         newVehicle.addClickListener(buttonClickEvent -> addNewVehicleDialog().open());
 
-        add(carGrid, getVehicleButton, newVehicle);
+        TextField color = new TextField("Podaj kolor");
+        Button getVehicleByColor = new Button("Pobierz pojazdy według podanego koloru ");
+        getVehicleByColor.addClickListener(buttonClickEvent -> addVehiclesByColorToGrid(color.getValue()));
+
+        DatePicker from = new DatePicker();
+        from.setLabel("From");
+        from.setClearButtonVisible(true);
+
+        DatePicker to = new DatePicker();
+        to.setLabel("To");
+        from.setClearButtonVisible(true);
+
+        Button productionDateButton = new Button("pobierz pojazdy według daty produkcji");
+        productionDateButton.addClickListener(buttonClickEvent -> addVehiclesByProductionDateToGrid(from.getValue().toString(), to.getValue().toString()));
+
+
+        add(carGrid, getVehicleButton, newVehicle, color, getVehicleByColor,from, to, productionDateButton);
     }
 
     public void addVehiclesToGrid(){
         carGrid.setItems(url.getCars());
+    }
+    public void addVehiclesByProductionDateToGrid(String from, String to){
+        carGrid.setItems(url.getCarsByDate(from, to));
+
+    }
+    public void addVehiclesByColorToGrid(String color){
+        carGrid.setItems(url.getCarsByColor(color));
     }
 
     public Dialog addNewVehicleDialog() {
